@@ -1,15 +1,14 @@
 <?php
 
-namespace App\Http\base\response;
+namespace App\Http\Base\Responses;
 
-use App\Http\base\response\HTTPCode;
+use App\Http\Base\Responses\HTTPCode;
 use Illuminate\Http\JsonResponse;
 use function trans;
 
 trait ApiResponse
 {
-    use \App\Http\base\response\Response;
-
+    use \App\Http\Base\Responses\Response;
 
     // Message =========================================================================================================
     public function responseWithMessage(string $message, int $statusCode = HTTPCode::Success): JsonResponse

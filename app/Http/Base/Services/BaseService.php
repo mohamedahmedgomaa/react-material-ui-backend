@@ -1,11 +1,8 @@
 <?php
 
-namespace App\Http\base\service;
+namespace App\Http\Base\Services;
 
-use App\Http\common\db\DBUtil;
-use App\Http\common\response\ApiResponse;
-use App\Http\common\util\AuthUtil;
-use App\Http\common\util\DataUtil;
+use App\Http\Base\Responses\ApiResponse;
 use Exception;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\DB;
@@ -19,7 +16,7 @@ use Illuminate\Support\Facades\Validator;
  */
 abstract class BaseService
 {
-    use ApiResponse, AuthUtil, DBUtil, DataUtil;
+    use ApiResponse;
 
 
     /**

@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Http\base\response;
+namespace App\Http\Base\Responses;
 
-use App\Http\base\response\HTTPCode;
+use App\Http\Base\Responses\HTTPCode;
 use Illuminate\Http\JsonResponse;
 use function response;
 

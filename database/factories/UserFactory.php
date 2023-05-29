@@ -11,7 +11,7 @@ use Illuminate\Support\Str;
 class UserFactory extends Factory
 {
     /**
-     * Define the model's default state.
+     * Define the Models's default state.
      *
      * @return array<string, mixed>
      */
@@ -27,7 +27,7 @@ class UserFactory extends Factory
     }
 
     /**
-     * Indicate that the model's email address should be unverified.
+     * Indicate that the Models's email address should be unverified.
      */
     public function unverified(): static
     {

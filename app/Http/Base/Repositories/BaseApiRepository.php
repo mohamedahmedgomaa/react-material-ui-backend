@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\base\repository;
+namespace App\Http\Base\Repositories;
 
 class BaseApiRepository extends BaseRepository implements RepositoryInterface
 {
@@ -10,7 +10,7 @@ class BaseApiRepository extends BaseRepository implements RepositoryInterface
     protected $model;
 
     /**
-     * Get all with base filter.
+     * Get all with Base filter.
      *
      * @param array $attributes
      * @return mixed
@@ -85,7 +85,7 @@ class BaseApiRepository extends BaseRepository implements RepositoryInterface
     {
         if ($object = $this->model->find($id)) {
             $object->delete();
-            // determine if a given model instance has been soft deleted, use the trashed method:
+            // determine if a given Models instance has been soft deleted, use the trashed method:
             if ($object->trashed())
                 return true;
         }

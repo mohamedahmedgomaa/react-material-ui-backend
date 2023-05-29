@@ -1,9 +1,9 @@
 <?php
 
-namespace App\Http\base\controller;
+namespace App\Http\Base\Controllers;
 
-use App\Http\base\service\BaseApiService;
-use App\Http\base\response\HTTPCode;
+use App\Http\Base\Services\BaseApiService;
+use App\Http\Base\Responses\HTTPCode;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Foundation\Validation\ValidatesRequests;

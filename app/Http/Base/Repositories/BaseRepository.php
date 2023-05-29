@@ -1,6 +1,9 @@
 <?php
 
-namespace App\Http\base\repository;
+namespace App\Http\Base\Repositories;
+
+use App\Http\Base\Utils\AuthUtil;
+use App\Http\Base\Utils\DataUtil;
 
 /*
  * This class Will do:
@@ -8,9 +11,9 @@ namespace App\Http\base\repository;
  * - add create by
  * - add update by
  */
-
 abstract class BaseRepository
 {
+    use AuthUtil, DataUtil;
 
     const pageNumber = "page";
     const perPage = "perPage";

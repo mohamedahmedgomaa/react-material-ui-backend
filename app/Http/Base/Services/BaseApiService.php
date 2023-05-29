@@ -1,19 +1,22 @@
 <?php
 
-namespace App\Http\base\service;
+namespace App\Http\Base\Services;
 
-use App\Http\base\repository\BaseApiRepository;
-use App\Http\base\repository\BaseRepository;
-use App\Http\base\request\BaseRequest;
+use App\Http\Base\Repositories\BaseApiRepository;
+use App\Http\Base\Repositories\BaseRepository;
+use App\Http\Base\Requests\BaseRequest;
+use App\Http\Base\Responses\ApiResponse;
+use App\Http\Base\Utils\AuthUtil;
+use App\Http\Base\Utils\DataUtil;
 use Illuminate\Http\JsonResponse;
 
 /*
  * This class Will do:
  * - return CRUD response
  */
-
 abstract class BaseApiService extends BaseService implements ServiceInterface
 {
+    use ApiResponse, AuthUtil, DataUtil;
 
     public $checkAuth = false;
 
@@ -121,6 +124,7 @@ abstract class BaseApiService extends BaseService implements ServiceInterface
      *
      * @param BaseRequest $request
      * @param int $id
+     * @param bool $restore
      * @return JsonResponse
      */
     public function update(BaseRequest $request, int $id, bool $restore = false): JsonResponse

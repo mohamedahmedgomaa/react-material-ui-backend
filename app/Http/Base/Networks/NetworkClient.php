@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\base\network;
+namespace App\Http\Base\Networks;
 
 use Illuminate\Http\Client\PendingRequest;
 use Illuminate\Http\Client\Response as HttpResponse;

@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Http\base\service;
+namespace App\Http\Base\Services;
 
-use App\Http\base\request\BaseRequest;
+use App\Http\Base\Requests\BaseRequest;
 use Illuminate\Http\JsonResponse;
 
 interface ServiceInterface

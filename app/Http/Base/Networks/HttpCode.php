@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\base\network;
+namespace App\Http\Base\Networks;
 
 use MyCLabs\Enum\Enum;
 class HttpCode extends Enum
