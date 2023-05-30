@@ -6,7 +6,7 @@ use App\Http\common\base\controller\BaseApiController;
 use App\Http\modules\user\request\LoginRequest;
 use App\Http\modules\user\request\ResetPasswordRequest;
 use App\Http\modules\user\request\SendOTPRequest;
-use App\Http\modules\user\service\UserService;
+use App\Http\modules\user\service\ExampleService;
 use Illuminate\Http\Request;
 
 class UserController extends BaseApiController
@@ -14,13 +14,13 @@ class UserController extends BaseApiController
     /**
      * UserController Constructor
      *
-     * @param UserService $service
+     * @param ExampleService $service
      *
      */
-    public function __construct(UserService $service)
+    public function __construct(ExampleService $service)
     {
         parent::__construct($service,[
-//            'index' => GetUserRequest::class,
+            'index' => GetUserRequest::class,
 //            'show' => GetUserRequest::class,
 //            'store' => CreateTeamsAppointmentRequest::class,
 //            'update' => UpdateTeamsAppointmentRequest::class,

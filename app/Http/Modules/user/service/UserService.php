@@ -81,9 +81,9 @@ class UserService extends BaseApiService
                 $result = $this->repository->resetPassword($request->account_type, $request->phone, $request->otp, $request->password);
             }
             if ($result) {
-                $statusCode = $result['statusCode'];
-                unset($result['statusCode']);
-                return $this->responseWithData($result, $statusCode);
+                $status = $result['status'];
+                unset($result['status']);
+                return $this->responseWithData($result, $status);
             }
             return $this->responseErrorWithMessage('Invalid Data!');
         });

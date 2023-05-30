@@ -41,12 +41,12 @@ class UserRepository extends BaseApiRepository
 
             return [];
         } else {
-            $statusCode = HTTPCode::Unauthorized;
+            $status = HTTPCode::Unauthorized;
 
             $result["message"] = trans('Access Denied!');
             $result["errors"] = HTTPCode::Unauthorized;
 
-            return [$result, $statusCode];
+            return [$result, $status];
         }
     }
 
@@ -55,15 +55,15 @@ class UserRepository extends BaseApiRepository
         if ($user = $this->getUserData($phone)) {
 //            if ($user->users_status == 0) { // 1-active,0-inactive, 5-sign up,6-reg
 //                return [
-//                    "statusCode" => 400,
+//                    "status" => 400,
 //                    "msg" => trans('api.not_activate_acc')
-//                ]; 
+//                ];
 //            }
             $accountType = "user";
         } else if ($user = $this->getSubUserData($phone)) {
 //            if ($user->status != 1) {
 //                return [
-//                    "statusCode" => 400,
+//                    "status" => 400,
 //                    "msg" => trans('api.not_activate_acc')
 //                ];
 //            }
@@ -82,13 +82,13 @@ class UserRepository extends BaseApiRepository
             //} else $sms_result = "SMS not sent";
 
             return [
-                "statusCode" => 200,
+                "status" => 200,
                 "account_type" => $accountType,
                 "msg" => $sms_result
             ];
         }
         return [
-            "statusCode" => 400,
+            "status" => 400,
             "msg" => "User not found"
         ];
     }
@@ -103,14 +103,14 @@ class UserRepository extends BaseApiRepository
 
         if ($user) {
             return [
-                "statusCode" => 200,
+                "status" => 200,
                 "account_type" => $accountType,
                 "phone" => $phone,
                 "otp" => $otp
             ];
         }
         return [
-            "statusCode" => 400,
+            "status" => 400,
             "msg" => "Otp error"
         ];
     }
@@ -133,13 +133,13 @@ class UserRepository extends BaseApiRepository
             $result = $this->updatePasswordInNewOps($phone,$user->password);
 
             return [
-                "statusCode" => 200,
+                "status" => 200,
                 "msg" => "Password has been reset successfully",
                 "ops_result" => $result
             ];
         }
         return [
-            "statusCode" => 400,
+            "status" => 400,
             "msg" => "Otp error"
         ];
     }

@@ -35,18 +35,18 @@ trait Response
      * @param string|null $message
      * @param  $data
      * @param  $errors
-     * @param int $statusCode
+     * @param int $status
      *
      * @return JsonResponse
      */
-    private function response(string $message = null, $data = null, $errors = null, int $statusCode = HTTPCode::Success): JsonResponse
+    private function response(string $message = null, $data = null, $errors = null, int $status = HTTPCode::Success): JsonResponse
     {
-        $result = ["statusCode" => $statusCode];
+        $result = ["status" => $status];
 
         if ($message) $result["message"] = $message;
         if ($data) $result["data"] = $data;
         if ($errors) $result["errors"] = $errors;
 
-        return $this->result($result, $statusCode);
+        return $this->result($result, $status);
     }
 }

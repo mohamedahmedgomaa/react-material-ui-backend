@@ -11,9 +11,9 @@ trait ApiResponse
     use \App\Http\Base\Responses\Response;
 
     // Message =========================================================================================================
-    public function responseWithMessage(string $message, int $statusCode = HTTPCode::Success): JsonResponse
+    public function responseWithMessage(string $message, int $status = HTTPCode::Success): JsonResponse
     {
-        return $this->response($message, null, null, $statusCode);
+        return $this->response($message, null, null, $status);
     }
 
     public function responseSuccessWithMessage(string $message): JsonResponse
@@ -28,9 +28,9 @@ trait ApiResponse
 
 
     // Data =========================================================================================================
-    public function responseWithData($data, int $statusCode = HTTPCode::Success): JsonResponse
+    public function responseWithData($data, int $status = HTTPCode::Success): JsonResponse
     {
-        return $this->response(null, $data, null, $statusCode);
+        return $this->response(null, $data, null, $status);
     }
 
     public function responseWithItemsAndMeta($items): JsonResponse
@@ -65,14 +65,14 @@ trait ApiResponse
 
 
     // Errors =========================================================================================================
-    public function responseWithError($errors, int $statusCode = HTTPCode::BadRequest): JsonResponse
+    public function responseWithError($errors, int $status = HTTPCode::BadRequest): JsonResponse
     {
-        return $this->response(null, null, $errors, $statusCode);
+        return $this->response(null, null, $errors, $status);
     }
 
-    public function responseWithMessageAndError(string $message,array $errors, int $statusCode = HTTPCode::BadRequest): JsonResponse
+    public function responseWithMessageAndError(string $message,array $errors, int $status = HTTPCode::BadRequest): JsonResponse
     {
-        return $this->response($message, null, $errors, $statusCode);
+        return $this->response($message, null, $errors, $status);
     }
 
 

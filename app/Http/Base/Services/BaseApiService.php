@@ -65,7 +65,6 @@ abstract class BaseApiService extends BaseService implements ServiceInterface
     {
         $attributes = $request->only($this->requestFilters());
         return $this->execute(function () use ($attributes) {
-
             if ($result = $this->repository->getAll($attributes)) {
                 if ($this->isExists($attributes, BaseRepository::pageNumber)) {
                     return $this->responseWithItemsAndMeta($result);

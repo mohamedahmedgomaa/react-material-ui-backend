@@ -110,12 +110,12 @@ class NetworkClient
             return $response->json();
         } else {
             $res = $response->json();
-            $statusCode = $response->status();
+            $status = $response->status();
 
-            Log::emergency('OLD OPS - API Error', ['code' => $statusCode, 'errors' => $response->throw()]);
+            Log::emergency('OLD OPS - API Error', ['code' => $status, 'errors' => $response->throw()]);
 
             if (isset($res['errors']) && !empty($res['errors'])) {
-                $res['status_code'] = $statusCode;
+                $res['status_code'] = $status;
                 return $res;
             }
 
@@ -130,7 +130,7 @@ class NetworkClient
             } else {
                 return $response->throw();
             }
-            return $this->getError($statusCode, $errors);
+            return $this->getError($status, $errors);
         }
     }
 

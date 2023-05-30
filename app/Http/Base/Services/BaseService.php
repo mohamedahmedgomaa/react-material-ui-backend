@@ -4,6 +4,7 @@ namespace App\Http\Base\Services;
 
 use App\Http\Base\Responses\ApiResponse;
 use Exception;
+use Illuminate\Http\Client\Response;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
@@ -47,10 +48,10 @@ abstract class BaseService
      * Wrap update and delete transaction
      *
      * @param callable $callable
-     * @return ?JsonResponse
+     * @return null
      * @throws Exception
      */
-    public function dbTransaction(callable $callable): ?JsonResponse
+    public function dbTransaction(callable $callable)
     {
         DB::beginTransaction();
         try {

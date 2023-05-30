@@ -1,14 +1,14 @@
 <?php
 
-namespace App\Models;
+namespace App\Http\Modules\Examples\Models;
 
+use App\Http\Base\Models\BaseModel;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Spatie\QueryBuilder\AllowedFilter;
 
-class Example extends Model
+class Example extends BaseModel
 {
-    use HasFactory;
 
     /**
      * The attributes that are mass assignable.
@@ -21,15 +21,13 @@ class Example extends Model
         'image',
     ];
 
-
     public static function getAllowedFilters(): array
     {
         return [
-            AllowedFilter::exact('business_type'),
-            AllowedFilter::exact('plan_type'),
-            AllowedFilter::scope('service_type', 'filterServiceTypes'),
-            'address',
-            AllowedFilter::scope('area_id', 'areaId'),
+            AllowedFilter::exact('id'),
+            AllowedFilter::exact('name'),
+            AllowedFilter::exact('image'),
         ];
     }
+
 }
