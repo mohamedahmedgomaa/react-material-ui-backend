@@ -3,6 +3,7 @@
 namespace App\Http\Modules\Examples\Services;
 
 
+use App\Http\Base\Requests\BaseRequest;
 use App\Http\Base\Services\BaseApiService;
 use App\Http\Modules\Examples\Repositories\ExampleRepository;
 use Illuminate\Http\JsonResponse;

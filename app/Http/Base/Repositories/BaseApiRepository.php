@@ -2,6 +2,9 @@
 
 namespace App\Http\Base\Repositories;
 
+use App\Http\Base\Models\BaseModel;
+use Spatie\QueryBuilder\QueryBuilder;
+
 class BaseApiRepository extends BaseRepository implements RepositoryInterface
 {
     /**
@@ -19,8 +22,17 @@ class BaseApiRepository extends BaseRepository implements RepositoryInterface
     {
         // Select
         $query = $this->model->select("*");
+        $QueryBuilder = QueryBuilder::for(
+            $query
+        )
+            ->allowedFilters($this->model->getAllowedFilters())
+            ->allowedFields($this->model::getAllowedFields())
+            ->allowedIncludes($this->model::getAllowedIncludes())
+            ->defaultSort($this->model::getDefaultSort())
+            ->with($this->model::getDefaultIncludedRelations())
+            ->with($this->model::getDefaultIncludedRelationsCount());
 
-        return $this->result($attributes, $query, $this->model->getTable());
+        return $this->result($attributes, $QueryBuilder, $this->model->getTable());
     }
 
     /**

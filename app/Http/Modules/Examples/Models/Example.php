@@ -30,4 +30,10 @@ class Example extends BaseModel
         ];
     }
 
+    public static function getDefaultSort()
+    {
+        return '-created_at';
+    }
+
+
 }

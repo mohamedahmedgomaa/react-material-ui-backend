@@ -47,6 +47,42 @@ class BaseModel extends Model
 
 
 
+    public static function getAllowedFilters(): array
+    {
+        return [];
+    }
+
+    public static function getSelectFields(): array
+    {
+        return ['*'];
+    }
+
+    public static function getDefaultSort()
+    {
+        return 'id';
+    }
+
+    public static function getAllowedIncludes(): array
+    {
+        return [];
+    }
+
+    public static function getDefaultIncludedRelations(): array
+    {
+        return [];
+    }
+
+    public static function getDefaultIncludedRelationsCount(): array
+    {
+        return [];
+    }
+
+    public static function getAllowedFields(): array
+    {
+        return [];
+    }
+
+
     private function localTimezone($value = null)
     {
         return $value ? Carbon::parse($value)->setTimezone(env("APP_TIMEZONE","UTC"))->toDateTimeString() : null;
