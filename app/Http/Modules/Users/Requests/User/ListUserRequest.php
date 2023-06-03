@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\modules\user\request\user;
+namespace App\Http\Modules\Users\Requests\User;
 
-use App\Http\common\base\request\BaseRequest;
+use App\Http\Base\Requests\BaseRequest;
 
-class GetUserRequest extends BaseRequest
+class ListUserRequest extends BaseRequest
 {
     public function authorize(): bool
     {

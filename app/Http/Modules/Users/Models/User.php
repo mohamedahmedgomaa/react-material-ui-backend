@@ -1,22 +1,33 @@
 <?php
 
-namespace App\Models;
+namespace App\Http\Modules\Users\Models;
 
- use Illuminate\Contracts\Auth\Access\Authorizable as AuthorizableContract;
- use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
- use Illuminate\Contracts\Auth\CanResetPassword as CanResetPasswordContract;
- use Illuminate\Contracts\Auth\MustVerifyEmail;
+use App\Http\Base\Models\BaseModel;
+use Illuminate\Auth\MustVerifyEmail;
+use Illuminate\Auth\Passwords\CanResetPassword;
+use Illuminate\Contracts\Auth\Access\Authorizable as AuthorizableContract;
+use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
+use Illuminate\Contracts\Auth\CanResetPassword as CanResetPasswordContract;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Foundation\Auth\Access\Authorizable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
-use Laravel\Sanctum\HasApiTokens;
+use Laravel\Passport\HasApiTokens;
 
-class User extends Authenticatable implements
-    AuthenticatableContract,
+class User extends BaseModel implements  AuthenticatableContract,
     AuthorizableContract,
     CanResetPasswordContract
 {
-    use HasApiTokens, HasFactory, Notifiable;
+    use \Illuminate\Auth\Authenticatable,
+        Authorizable,
+        CanResetPassword,
+        MustVerifyEmail,
+        HasFactory,
+        Notifiable,
+        HasApiTokens;
+
+    const PersonalToken = 'PersonalToken';
+    const Guard = 'api';
 
     /**
      * The attributes that are mass assignable.
@@ -26,6 +37,7 @@ class User extends Authenticatable implements
     protected $fillable = [
         'name',
         'email',
+        'phone',
         'password',
     ];
 

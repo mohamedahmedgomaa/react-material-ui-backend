@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\modules\user\enums;
+namespace App\Http\Modules\Users\Enums;
 
 use MyCLabs\Enum\Enum;
 

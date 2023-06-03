@@ -1,8 +1,9 @@
 <?php
 
-namespace App\Http\modules\user\request;
+namespace App\Http\Modules\Users\Requests;
 
-use App\Http\common\base\request\BaseRequest;
+
+use App\Http\Base\Requests\BaseRequest;
 
 class LoginRequest extends BaseRequest
 {
@@ -16,7 +17,6 @@ class LoginRequest extends BaseRequest
     {
         return [
             'email' => 'required|email', // |exists:users,email
-            'otp' => 'required|numeric|digits:4', // |exists:users,mobile_otp,email,'.$this->email
             'password' => 'required',
         ];
     }

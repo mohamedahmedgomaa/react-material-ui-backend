@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Http\modules\user\request;
+namespace App\Http\Modules\Users\Requests;
 
-use App\Http\common\base\request\BaseRequest;
+use App\Http\Base\Requests\BaseRequest;
 
 class SendOTPRequest extends BaseRequest
 {
