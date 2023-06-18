@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Modules\Examples\Requests\Example;
+namespace App\Http\Modules\Examples\Requests;
 
 use App\Http\Base\Requests\BaseRequest;
 
-class ListExampleRequest extends BaseRequest
+class DeleteExampleRequest extends BaseRequest
 {
     public function authorize(): bool
     {

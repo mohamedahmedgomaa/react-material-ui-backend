@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Modules\Examples\Requests\Example;
+namespace App\Http\Modules\Examples\Requests;
 
 use App\Http\Base\Requests\BaseRequest;
 

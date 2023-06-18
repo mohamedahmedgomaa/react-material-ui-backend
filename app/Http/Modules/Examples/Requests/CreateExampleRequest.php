@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Modules\Examples\Requests\Example;
+namespace App\Http\Modules\Examples\Requests;
 
 use App\Http\Base\Requests\BaseRequest;
 
-class DeleteExampleRequest extends BaseRequest
+class CreateExampleRequest extends BaseRequest
 {
     public function authorize(): bool
     {
@@ -15,7 +15,8 @@ class DeleteExampleRequest extends BaseRequest
     public function rules(): array
     {
         return [
-
+            'name' => 'required|string|max:100',
+            'image' => 'required',
         ];
     }
 }
