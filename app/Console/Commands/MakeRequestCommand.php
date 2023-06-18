@@ -15,7 +15,7 @@ class MakeRequestCommand extends Command
      * @var string
      */
     protected $signature = 'crud:request
-                            {name : The name of the Request.}
+                            {name : The name of the model.}
                             {--request-action= : Field name request action. example (Create) || (Update)|| (Delete)|| (Show)|| (List)}';
 
     /**

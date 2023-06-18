@@ -15,7 +15,7 @@ class MakeRepositoryCommand extends Command
      * @var string
      */
     protected $signature = 'crud:repository
-                            {name : The name of the Repository.}';
+                            {name : The name of the model.}';
 
     /**
      * The console command description.

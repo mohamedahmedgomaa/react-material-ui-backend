@@ -15,4 +15,5 @@ class $CLASS_NAME$ extends BaseApiService
     {
         parent::__construct($repository);
     }
+
 }

@@ -7,22 +7,24 @@ use Illuminate\Support\Pluralizer;
 use Illuminate\Filesystem\Filesystem;
 use Illuminate\Support\Str;
 
-class MakeInterfaceCommand extends Command
+class MakeCrudCommand extends Command
 {
     /**
      * The name and signature of the console command.
+     *  php artisan crud:all ExampleCommand "id,name"
      *
      * @var string
      */
-    protected $signature = 'crud:interface
-                                {name : The name of the Model.}';
+    protected $signature = 'crud:all
+                            {name : The name of the Model.}
+                            {fillables : The name of the Fillables Model.}';
 
     /**
      * The console command description.
      *
      * @var string
      */
-    protected $description = 'Make an Interface Class';
+    protected $description = 'Make an crud all class';
 
     /**
      * Filesystem instance
@@ -49,15 +51,13 @@ class MakeInterfaceCommand extends Command
         $path = $this->getSourceFilePath();
 
         $this->makeDirectory(dirname($path));
+        // create files controller
+        $this->call('crud:model', ['name' => $this->argument('name'), '--fillables' => $this->argument('fillables')]);
+        $this->call('crud:service', ['name' => $this->argument('name')]);
+        $this->call('crud:repository', ['name' => $this->argument('name')]);
+        $this->call('crud:controller', ['name' => $this->argument('name')]);
 
-        $contents = $this->getSourceFile();
-
-        if (!$this->files->exists($path)) {
-            $this->files->put($path, $contents);
-            $this->info("File : {$path} created");
-        } else {
-            $this->info("File : {$path} already exits");
-        }
+        $this->info("Files Crud created");
 
     }
 
@@ -66,10 +66,24 @@ class MakeInterfaceCommand extends Command
      */
     public function getBasePath(): string
     {
+        return 'App\\Http\\Modules\\' . $this->getClassPlural() . '\\Controllers';
+    }
 
+    /**
+     * @return string
+     */
+    public function getServicePath(): string
+    {
+        return 'App\\Http\\Modules\\' . $this->getClassPlural() . '\\Services\\' . $this->argument('name') . 'Service';
+    }
+
+    /**
+     * @return string
+     */
+    public function getClassPlural(): string
+    {
         // Converts a singular word into a plural
-        $plural_name = Str::of($this->argument('name'))->plural(5);
-        return 'App\\Http\\Modules\\'. $plural_name .'\\Interfaces';
+        return Str::of($this->argument('name'))->plural(5);
     }
 
     /**
@@ -77,7 +91,7 @@ class MakeInterfaceCommand extends Command
      */
     public function getBaseName(): string
     {
-        return $this->getSingularClassName($this->argument('name')) . 'Interface.php';
+        return $this->getSingularClassName($this->argument('name')) . 'Controller.php';
     }
 
     /**
@@ -87,7 +101,7 @@ class MakeInterfaceCommand extends Command
      */
     public function getStubPath(): string
     {
-        return __DIR__ . '/../../../stubs/interface.stub';
+        return __DIR__ . '/../../../stubs/new_controller.stub';
     }
 
     /**
@@ -100,8 +114,12 @@ class MakeInterfaceCommand extends Command
     public function getStubVariables(): array
     {
         return [
-            'NAMESPACE'         => $this->getBasePath(),
-            'CLASS_NAME'        => $this->getSingularClassName($this->argument('name')),
+            'NAMESPACE' => $this->getBasePath(),
+            'MODEL_NAME' => $this->getSingularClassName($this->argument('name')),
+            'CLASS_NAME' => $this->getSingularClassName($this->argument('name')) . 'Controller',
+            'CLASS_PLURAL' => $this->getClassPlural(),
+            'SERVICE_NAME' => $this->getSingularClassName($this->argument('name')) . 'Service',
+            'SERVICE_PATH' => $this->getServicePath(),
         ];
     }
 
@@ -124,13 +142,12 @@ class MakeInterfaceCommand extends Command
      * @param array $stubVariables
      * @return string|array|bool
      */
-    public function getStubContents($stub ,array $stubVariables = []): string|array|bool
+    public function getStubContents($stub, array $stubVariables = []): string|array|bool
     {
         $contents = file_get_contents($stub);
 
-        foreach ($stubVariables as $search => $replace)
-        {
-            $contents = str_replace('$'.$search.'$' , $replace, $contents);
+        foreach ($stubVariables as $search => $replace) {
+            $contents = str_replace('$' . $search . '$', $replace, $contents);
         }
 
         return $contents;
@@ -144,7 +161,7 @@ class MakeInterfaceCommand extends Command
      */
     public function getSourceFilePath()
     {
-        return $this->getBasePath() .'\\' . $this->getBaseName();
+        return $this->getBasePath() . '\\' . $this->getBaseName();
     }
 
     /**
@@ -160,12 +177,12 @@ class MakeInterfaceCommand extends Command
     /**
      * Build the directory for the class if necessary.
      *
-     * @param  string  $path
+     * @param string $path
      * @return string
      */
     protected function makeDirectory(string $path)
     {
-        if (! $this->files->isDirectory($path)) {
+        if (!$this->files->isDirectory($path)) {
             $this->files->makeDirectory($path, 0777, true, true);
         }
 

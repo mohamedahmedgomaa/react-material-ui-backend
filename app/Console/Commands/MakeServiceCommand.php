@@ -15,7 +15,7 @@ class MakeServiceCommand extends Command
      * @var string
      */
     protected $signature = 'crud:service
-                            {name : The name of the Service.}';
+                            {name : The name of the model.}';
 
     /**
      * The console command description.

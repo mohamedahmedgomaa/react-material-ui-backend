@@ -15,4 +15,5 @@ class ExampleCommandService extends BaseApiService
     {
         parent::__construct($repository);
     }
+
 }
