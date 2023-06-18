@@ -7,22 +7,22 @@ use Illuminate\Support\Pluralizer;
 use Illuminate\Filesystem\Filesystem;
 use Illuminate\Support\Str;
 
-class MakeRepositoryCommand extends Command
+class MakeServiceCommand extends Command
 {
     /**
      * The name and signature of the console command.
      *
      * @var string
      */
-    protected $signature = 'crud:repository
-                            {name : The name of the Repository.}';
+    protected $signature = 'crud:service
+                            {name : The name of the Service.}';
 
     /**
      * The console command description.
      *
      * @var string
      */
-    protected $description = 'Make an Repository Class';
+    protected $description = 'Make an Service Class';
 
     /**
      * Filesystem instance
@@ -68,16 +68,16 @@ class MakeRepositoryCommand extends Command
     {
         // Converts a singular word into a plural
         $plural_name = Str::of($this->argument('name'))->plural(5);
-        return 'App\\Http\\Modules\\'. $plural_name .'\\Repositories';
+        return 'App\\Http\\Modules\\' . $plural_name . '\\Services';
     }
 
     /**
      * @return string
      */
-    public function getModelPath(): string
+    public function getRepositoryPath(): string
     {
         $plural_name = Str::of($this->argument('name'))->plural(5);
-        return 'App\\Http\\Modules\\'. $plural_name .'\\Models\\'. $this->argument('name');
+        return 'App\\Http\\Modules\\' . $plural_name . '\\Repositories\\' . $this->argument('name') . 'Repository';
     }
 
     /**
@@ -85,7 +85,7 @@ class MakeRepositoryCommand extends Command
      */
     public function getBaseName(): string
     {
-        return $this->getSingularClassName($this->argument('name')) . 'Repository.php';
+        return $this->getSingularClassName($this->argument('name')) . 'Service.php';
     }
 
     /**
@@ -95,7 +95,7 @@ class MakeRepositoryCommand extends Command
      */
     public function getStubPath(): string
     {
-        return __DIR__ . '/../../../stubs/new_repository.stub';
+        return __DIR__ . '/../../../stubs/new_service.stub';
     }
 
     /**
@@ -108,10 +108,10 @@ class MakeRepositoryCommand extends Command
     public function getStubVariables(): array
     {
         return [
-            'NAMESPACE'         => $this->getBasePath(),
-            'CLASS_NAME'        => $this->getSingularClassName($this->argument('name')) . 'Repository',
-            'MODEL_NAME'        => $this->getSingularClassName($this->argument('name')),
-            'MODEL_PATH'        => $this->getModelPath(),
+            'NAMESPACE' => $this->getBasePath(),
+            'CLASS_NAME' => $this->getSingularClassName($this->argument('name')) . 'Service',
+            'REPOSITORY_NAME' => $this->getSingularClassName($this->argument('name')) . 'Repository',
+            'REPOSITORY_PATH' => $this->getRepositoryPath(),
         ];
     }
 
@@ -134,13 +134,12 @@ class MakeRepositoryCommand extends Command
      * @param array $stubVariables
      * @return string|array|bool
      */
-    public function getStubContents($stub ,array $stubVariables = []): string|array|bool
+    public function getStubContents($stub, array $stubVariables = []): string|array|bool
     {
         $contents = file_get_contents($stub);
 
-        foreach ($stubVariables as $search => $replace)
-        {
-            $contents = str_replace('$'.$search.'$' , $replace, $contents);
+        foreach ($stubVariables as $search => $replace) {
+            $contents = str_replace('$' . $search . '$', $replace, $contents);
         }
 
         return $contents;
@@ -154,7 +153,7 @@ class MakeRepositoryCommand extends Command
      */
     public function getSourceFilePath()
     {
-        return $this->getBasePath() .'\\' . $this->getBaseName();
+        return $this->getBasePath() . '\\' . $this->getBaseName();
     }
 
     /**
@@ -170,12 +169,12 @@ class MakeRepositoryCommand extends Command
     /**
      * Build the directory for the class if necessary.
      *
-     * @param  string  $path
+     * @param string $path
      * @return string
      */
     protected function makeDirectory(string $path)
     {
-        if (! $this->files->isDirectory($path)) {
+        if (!$this->files->isDirectory($path)) {
             $this->files->makeDirectory($path, 0777, true, true);
         }
 
