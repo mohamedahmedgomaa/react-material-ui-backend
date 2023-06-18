@@ -5,6 +5,7 @@ namespace App\Console\Commands;
 use Illuminate\Console\Command;
 use Illuminate\Support\Pluralizer;
 use Illuminate\Filesystem\Filesystem;
+use Illuminate\Support\Str;
 use Spatie\QueryBuilder\AllowedFilter;
 
 class MakeModelCommand extends Command
@@ -68,7 +69,9 @@ class MakeModelCommand extends Command
      */
     public function getBasePath(): string
     {
-        return 'App\\Http\\Modules\\' . $this->argument('name') . 's\\Models';
+        // Converts a singular word into a plural
+        $plural_name = Str::of($this->argument('name'))->plural(5);
+        return 'App\\Http\\Modules\\'. $plural_name .'\\Models';
     }
 
     /**
@@ -77,6 +80,14 @@ class MakeModelCommand extends Command
     public function getBaseName(): string
     {
         return $this->getSingularClassName($this->argument('name'));
+    }
+
+    /**
+     * @return string
+     */
+    public function getTableName(): string
+    {
+        return Str::plural(Str::snake($this->argument('name')));
     }
 
     /**
@@ -133,6 +144,7 @@ class MakeModelCommand extends Command
             'CLASS_NAME' => $this->getSingularClassName($this->argument('name')),
             'FILLABLES' => $this->getFillables($this->option('fillables')),
             'ALLOWED_FILTERS' => $this->getAllowedFilters($this->option('fillables')),
+            'TABLE_NAME' => $this->getTableName(),
         ];
     }
 

@@ -5,6 +5,7 @@ namespace App\Console\Commands;
 use Illuminate\Console\Command;
 use Illuminate\Support\Pluralizer;
 use Illuminate\Filesystem\Filesystem;
+use Illuminate\Support\Str;
 
 class MakeInterfaceCommand extends Command
 {
@@ -64,7 +65,10 @@ class MakeInterfaceCommand extends Command
      */
     public function getBasePath(): string
     {
-        return 'App\\Http\\Modules\\'. $this->argument('name') .'s\\Interfaces';
+
+        // Converts a singular word into a plural
+        $plural_name = Str::of($this->argument('name'))->plural(5);
+        return 'App\\Http\\Modules\\'. $plural_name .'\\Interfaces';
     }
 
     /**

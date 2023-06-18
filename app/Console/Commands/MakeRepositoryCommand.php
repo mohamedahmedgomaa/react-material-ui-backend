@@ -7,23 +7,22 @@ use Illuminate\Support\Pluralizer;
 use Illuminate\Filesystem\Filesystem;
 use Illuminate\Support\Str;
 
-class MakeRequestCommand extends Command
+class MakeRepositoryCommand extends Command
 {
     /**
      * The name and signature of the console command.
      *
      * @var string
      */
-    protected $signature = 'crud:request
-                            {name : The name of the Request.}
-                            {--request-action= : Field name request action. example (Create) || (Update)|| (Delete)|| (Show)|| (List)}';
+    protected $signature = 'crud:repository
+                            {name : The name of the Repository.}';
 
     /**
      * The console command description.
      *
      * @var string
      */
-    protected $description = 'Make an Request Class';
+    protected $description = 'Make an Repository Class';
 
     /**
      * Filesystem instance
@@ -69,7 +68,16 @@ class MakeRequestCommand extends Command
     {
         // Converts a singular word into a plural
         $plural_name = Str::of($this->argument('name'))->plural(5);
-        return 'App\\Http\\Modules\\'. $plural_name .'\\Requests';
+        return 'App\\Http\\Modules\\'. $plural_name .'\\Repositories';
+    }
+
+    /**
+     * @return string
+     */
+    public function getModelPath(): string
+    {
+        $sum = Str::of($this->argument('name'))->plural(5);
+        return 'App\\Http\\Modules\\'. $sum .'\\Models\\'. $this->argument('name');
     }
 
     /**
@@ -77,7 +85,7 @@ class MakeRequestCommand extends Command
      */
     public function getBaseName(): string
     {
-        return $this->option('request-action') . $this->getSingularClassName($this->argument('name')) . 'Request.php';
+        return $this->getSingularClassName($this->argument('name')) . 'Repository.php';
     }
 
     /**
@@ -87,7 +95,7 @@ class MakeRequestCommand extends Command
      */
     public function getStubPath(): string
     {
-        return __DIR__ . '/../../../stubs/new_request.stub';
+        return __DIR__ . '/../../../stubs/new_repository.stub';
     }
 
     /**
@@ -101,7 +109,9 @@ class MakeRequestCommand extends Command
     {
         return [
             'NAMESPACE'         => $this->getBasePath(),
-            'CLASS_NAME'        => $this->option('request-action') . $this->getSingularClassName($this->argument('name')) . 'Request',
+            'CLASS_NAME'        => $this->getSingularClassName($this->argument('name')) . 'Repository',
+            'MODEL_NAME'        => $this->getSingularClassName($this->argument('name')),
+            'MODEL_PATH'        => $this->getModelPath(),
         ];
     }
 
