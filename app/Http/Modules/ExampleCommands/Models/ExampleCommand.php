@@ -10,6 +10,8 @@ class ExampleCommand extends BaseModel
 {
     use HasFactory;
 
+    protected $table = 'example_commands';
+
     /**
      * The attributes that are mass assignable.
      *
