@@ -98,7 +98,7 @@ class BaseApiRepository extends BaseRepository implements RepositoryInterface
         if ($object = $this->model->find($id)) {
             $object->delete();
             // determine if a given Models instance has been soft deleted, use the trashed method:
-            if ($object->trashed())
+            if (!$this->model->find($id))
                 return true;
         }
         return false;
