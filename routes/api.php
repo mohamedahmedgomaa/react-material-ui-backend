@@ -19,9 +19,8 @@ use Illuminate\Support\Facades\Route;
 //    return $request->user();
 //});
 
-Route::apiResources([
-    'example' => App\Http\Modules\Examples\Controllers\ExampleController::class,
-]);
+
+require __DIR__ . '/example/example.php';
 
 Route::group(['middleware' => ['json.response']], function () {
 
